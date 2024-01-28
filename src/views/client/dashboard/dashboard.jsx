@@ -18,10 +18,13 @@ const Dashboard = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    if (user?.role === "admin") nav("/admin");
+    if (user?.role === "admin") nav("/admin", { replace: true });
+    return () => {
+      dispatch(clearPosts());
+    };
   }, [user]);
 
-  useMemo(() => {
+  useEffect(() => {
     setPage(1);
     dispatch(clearPosts());
     return () => {
